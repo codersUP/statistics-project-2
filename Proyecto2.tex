@@ -31,6 +31,7 @@
 \usepackage[x11names,table]{xcolor}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{multicol}
 %-----------------------------------------------------------------------------------
 % Configuración
 %-----------------------------------------------------------------------------------
@@ -157,17 +158,19 @@ la criminalidad en todas las "municipalidades" en los Estados Unidos. Se decidi�
 %-----------------------------------------------------------------------------------
 \section{Regresión lineal}\label{sec:ex1.1}
 %-----------------------------------------------------------------------------------
-
-\begin{verbatim}
-	> cor(dataFiltered)
-
-						medIncome PctPopUnderPov PctUnemployed ViolentCrimesPerPop nonViolPerPop
-	medIncome            1.0000000     -0.7583720    -0.6146940          -0.3761265    -0.4660912
-	PctPopUnderPov      -0.7583720      1.0000000     0.7727260           0.4743996     0.5061137
-	PctUnemployed       -0.6146940      0.7727260     1.0000000           0.4317157     0.3985916
-	ViolentCrimesPerPop -0.3761265      0.4743996     0.4317157           1.0000000     0.6289104
-	nonViolPerPop       -0.4660912      0.5061137     0.3985916           0.6289104     1.0000000
-\end{verbatim}
+\begin{multicols*}{2}
+	
+	\begin{verbatim}
+		> cor(dataFiltered)
+		
+		medIncome PctPopUnderPov PctUnemployed ViolentCrimesPerPop nonViolPerPop
+		medIncome            1.0000000     -0.7583720    -0.6146940          -0.3761265    -0.4660912
+		PctPopUnderPov      -0.7583720      1.0000000     0.7727260           0.4743996     0.5061137
+		PctUnemployed       -0.6146940      0.7727260     1.0000000           0.4317157     0.3985916
+		ViolentCrimesPerPop -0.3761265      0.4743996     0.4317157           1.0000000     0.6289104
+		nonViolPerPop       -0.4660912      0.5061137     0.3985916           0.6289104     1.0000000
+	\end{verbatim}
+\end{multicols*}
 
 Existe una dependencia lineal entre medIncome y PctPopUnderPov. Luego es posible
 eliminar una de las variables, pero por el momento se continuará trabajando con todas en
