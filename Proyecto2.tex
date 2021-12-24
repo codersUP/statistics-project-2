@@ -188,7 +188,7 @@ la construcción del modelo.
 Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 \subsection*{Crímenes Violentos.}
 \begin{itemize}
-	\item {ViolentCrimesPerPop$\rightarrow$medIncome+PctPopUnderPov+PctUnemployed}
+	\item {ViolentCrimesPerPop$\rightarrow$medIncome+ \\ PctPopUnderPov+PctUnemployed}
 
 		% \begin{verbatim}
 		% 	> multi.fit = lm(ViolentCrimesPerPop~medIncome+PctPopUnderPov+PctUnemployed)
@@ -225,7 +225,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que  $Pr(> | t | )$ =1.
 	Se puede decir que las variables independientes definen a ViolentCrimesPerPop. El nivel de significación es 0 para las variables, excepto para medIcome que es 0.332. Esto apunta a que dicha variable no aporta nada al modelo y por tanto puede ser eliminada. El valor de $R^2$ ajustado es 0.2349 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
 
-	\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov+PctUnemployed}
+	\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov \\ +PctUnemployed}
 
 		% \begin{verbatim}
 		% 	> multi.fit = lm(ViolentCrimesPerPop~PctPopUnderPov+PctUnemployed)
@@ -330,7 +330,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 
 \subsection*{Crímenes no violentos.}
 \begin{itemize}
-	\item {nonViolPerPop$\rightarrow$medIncome+PctPopUnderPov+PctUnemployed}
+	\item {nonViolPerPop$\rightarrow$medIncome \\ +PctPopUnderPov+PctUnemployed}
 		% \begin{verbatim}
 			
 		% 	> multi.fit = lm(nonViolPerPop~medIncome+PctPopUnderPov+PctUnemployed)
