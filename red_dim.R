@@ -105,7 +105,7 @@ plot(1:15, wss, type="b", xlab="Number of Clusters",
 # k means
 dataFiltered.std <- data.frame(dataFiltered.std)
 
-fit.k1 <- kmeans(dataFiltered.std, 6)
+fit.k1 <- kmeans(dataFiltered.std, 4)
 fit.k1
 
 plot(dataFiltered.std, col=fit.k1$cluster)
