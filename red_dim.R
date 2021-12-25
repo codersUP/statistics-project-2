@@ -11,8 +11,8 @@ for(c in colnames(data)){
   }
   
   col_d <- as.double(as.character(col))
-  col_withot_na <- na.omit(col_d)
-  m <- mean(col_withot_na)
+  col_without_na <- na.omit(col_d)
+  m <- mean(col_without_na)
   
   for(i in 1:length(col)) {
     if(is.na(col[i])){
@@ -25,9 +25,9 @@ for(c in colnames(data)){
   data[[c]] <- col
 }
 
-# para todas las variables
+# All variables
 
-# componentes principales
+# Main components
 tp <- cor(data)
 symnum(tp)
 
@@ -38,21 +38,21 @@ plot(acp)
 acp$rotation
 
 
-#estandarizando los datos
+# Standardizing the data
 data.std <- scale(data)
 
-#clúster jerárquico completo
-d <- dist(data.std, method = 'euclidean') #matriz de distancias con la distancia euclidiana
-fit <- hclust(d, method = 'complete') #ajuste completo
+# Full hierarchical cluster
+d <- dist(data.std, method = 'euclidean') # Distance matrix with Euclidean distance
+fit <- hclust(d, method = 'complete') # Full adjustment
 plot(fit)
 d2 <- as.dendrogram(fit)
 
-#dibuja rectangulos rojos alrededor de los 8 cluster
+# Draw red rectangles around the 8 clusters
 rect.hclust(fit, k=8, border="red")
 
 set.seed(0)
 
-# cantidad de clusters a seleccionar
+# Number of clusters to select
 mydata <- data.std
 wss <- (nrow(mydata)-1)*sum(apply(mydata,2,var))
 for (i in 2:15) wss[i] <- sum(kmeans(mydata,
@@ -67,10 +67,10 @@ fit.k1 <- kmeans(data.std, 8)
 fit.k1
 
 
-# para los datos con las variables seleccionadass
+# Selected variables
 dataFiltered <- data[,c("medIncome","PctPopUnderPov","PctUnemployed","ViolentCrimesPerPop","nonViolPerPop")]
 
-# componentes principales
+# Main components
 tp <- cor(dataFiltered)
 symnum(tp)
 
@@ -80,21 +80,21 @@ plot(acp)
 
 acp$rotation
 
-#estandarizando los datos
+# Standardizing the data
 dataFiltered.std <- scale(dataFiltered)
 
-#clúster jerárquico completo
-d <- dist(dataFiltered.std, method = 'euclidean') #matriz de distancias con la distancia euclidiana
-fit <- hclust(d, method = 'complete') #ajuste completo
+# Full hierarchical cluster
+d <- dist(dataFiltered.std, method = 'euclidean') # Distance matrix with Euclidean distance
+fit <- hclust(d, method = 'complete') # Full adjustment
 plot(fit)
 d2 <- as.dendrogram(fit)
 
-#dibuja rectangulos rojos alrededor de los 6 cluster
+# Draw red rectangles around the 6 clusters
 rect.hclust(fit, k=6, border="red")
 
 set.seed(0)
 
-# cantidad de clusters a seleccionar
+# Number of clusters to select
 mydata <- dataFiltered.std
 wss <- (nrow(mydata)-1)*sum(apply(mydata,2,var))
 for (i in 2:15) wss[i] <- sum(kmeans(mydata,
