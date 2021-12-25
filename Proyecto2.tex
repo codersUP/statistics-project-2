@@ -31,6 +31,9 @@
 \usepackage[x11names,table]{xcolor}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
 %-----------------------------------------------------------------------------------
 % Configuración
 %-----------------------------------------------------------------------------------
@@ -40,6 +43,7 @@
 	    linkcolor=black,%
 	    urlcolor=blue}
 
+\lstset{language=R}
 %===================================================================================
 
 
@@ -134,6 +138,486 @@
 
 %===================================================================================
 % Desarrollo
+%-----------------------------------------------------------------------------------
+\section{Variables}\label{sec:ex1.0}
+%-----------------------------------------------------------------------------------
+El set de datos que se analiza en este proyecto tiene como uno de los objetivos principales el análisis de 
+la criminalidad en todas las "municipalidades" en los Estados Unidos. Se decidió hacer un análisis tratando
+ de asociar cuestiones meramente socio-ecónomicas de los individuos en búsqueda de una relación de los mismos con 
+ el crimen en estas comunidades.
+
+ Como consecuencia a dicha decisión se toman como variables independientes:
+ \begin{itemize}
+	 \item medIncome : ingreso promedio de los trabajdores.
+	 \item PctPopUnderPov : porciento de la población que vive por debajo del nivel de pobreza.
+	 \item PctUnemployed : porciento de individuos desempleados con edad laboral.	 
+ \end{itemize}
+
+ Como variables dependientes se tiene:
+ \begin{itemize}
+	 \item ViolentCrimesPerPop : cantidad de crímenes violentos por cada 100 000 habitantes.
+	 \item nonViolPerPop : cantidad de crímenes no violentos por cada 100 000 habitantes.
+ \end{itemize}
+%-----------------------------------------------------------------------------------
+\section{Regresión lineal}\label{sec:ex1.1}
+%-----------------------------------------------------------------------------------
+% \begin{multicols*}{2}
+	
+	% \begin{lstlisting}
+	% 	> cor(dataFiltered)
+		
+	% 	medIncome PctPopUnderPov PctUnemployed ViolentCrimesPerPop nonViolPerPop
+	% 	medIncome            1.0000000     -0.7583720    -0.6146940          -0.3761265    -0.4660912
+	% 	PctPopUnderPov      -0.7583720      1.0000000     0.7727260           0.4743996     0.5061137
+	% 	PctUnemployed       -0.6146940      0.7727260     1.0000000           0.4317157     0.3985916
+	% 	ViolentCrimesPerPop -0.3761265      0.4743996     0.4317157           1.0000000     0.6289104
+	% 	nonViolPerPop       -0.4660912      0.5061137     0.3985916           0.6289104     1.0000000
+	% \end{lstlisting}
+% \end{multicols*}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=\columnwidth]{figures/correlation.png}
+	\end{center}	
+\end{figure}
+
+Existe una dependencia lineal entre medIncome y PctPopUnderPov. Luego es posible
+eliminar una de las variables, pero por el momento se continuará trabajando con todas en
+la construcción del modelo.
+
+Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
+\subsection*{Crímenes Violentos.}
+\begin{itemize}
+	\item {ViolentCrimesPerPop$\rightarrow$medIncome+ \\ PctPopUnderPov+PctUnemployed}
+
+		% \begin{verbatim}
+		% 	> multi.fit = lm(ViolentCrimesPerPop~medIncome+PctPopUnderPov+PctUnemployed)
+		% 	> summary(multi.fit)
+
+		% 	Call:
+		% 	lm(formula = ViolentCrimesPerPop ~ medIncome + PctPopUnderPov + 
+		% 		PctUnemployed)
+
+		% 	Residuals:
+		% 		Min      1Q  Median      3Q     Max 
+		% 	-3.0940 -0.4609 -0.1814  0.2954  6.4543 
+
+		% 	Coefficients:
+		% 					Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)     2.216e-16  1.859e-02   0.000    1.000    
+		% 	medIncome      -2.771e-02  2.859e-02  -0.969    0.332    
+		% 	PctPopUnderPov  3.300e-01  3.553e-02   9.288  < 2e-16 ***
+		% 	PctUnemployed   1.597e-01  2.936e-02   5.440 5.93e-08 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		% 	Residual standard error: 0.8747 on 2211 degrees of freedom
+		% 	Multiple R-squared:  0.2359,	Adjusted R-squared:  0.2349 
+		% 	F-statistic: 227.5 on 3 and 2211 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit1.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que  $Pr(> | t | )$ =1.
+	Se puede decir que las variables independientes definen a ViolentCrimesPerPop. El nivel de significación es 0 para las variables, excepto para medIcome que es 0.332. Esto apunta a que dicha variable no aporta nada al modelo y por tanto puede ser eliminada. El valor de $R^2$ ajustado es 0.2349 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
+
+	\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov \\ +PctUnemployed}
+
+		% \begin{verbatim}
+		% 	> multi.fit = lm(ViolentCrimesPerPop~PctPopUnderPov+PctUnemployed)
+		% 	> summary(multi.fit)
+
+		% 	Call:
+		% 	lm(formula = ViolentCrimesPerPop ~ PctPopUnderPov + PctUnemployed)
+
+		% 	Residuals:
+		% 		Min      1Q  Median      3Q     Max 
+		% 	-3.1629 -0.4628 -0.1839  0.2991  6.4463 
+
+		% 	Coefficients:
+		% 					Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)    2.279e-16  1.859e-02    0.00        1    
+		% 	PctPopUnderPov 3.495e-01  2.929e-02   11.93  < 2e-16 ***
+		% 	PctUnemployed  1.617e-01  2.929e-02    5.52 3.79e-08 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		% 	Residual standard error: 0.8747 on 2212 degrees of freedom
+		% 	Multiple R-squared:  0.2356,	Adjusted R-squared:  0.2349 
+		% 	F-statistic: 340.9 on 2 and 2212 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit2.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que las variables independientes definen a ViolentCrimesPerPop. El nivel de significación es 0 para las variables, lo cual representa que tienen gran importancia. El valor de $R^2$ ajustado es 0.2349 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
+
+	\item{ViolentCrimesPerPop$\rightarrow$PctUnemployed}
+		% \begin{verbatim}
+			
+		% 	> multi.fit = lm(ViolentCrimesPerPop~PctUnemployed)
+		% 	> summary(multi.fit)
+			
+		% 	Call:
+		% 	lm(formula = ViolentCrimesPerPop ~ PctUnemployed)
+			
+		% 	Residuals:
+		% 	Min      1Q  Median      3Q     Max 
+		% 	-3.7549 -0.5232 -0.2216  0.2893  6.4039 
+			
+		% 	Coefficients:
+		% 				Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)   2.335e-16  1.917e-02    0.00        1    
+		% 	PctUnemployed 4.317e-01  1.917e-02   22.52   <2e-16 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+			
+		% 	Residual standard error: 0.9022 on 2213 degrees of freedom
+		% 	Multiple R-squared:  0.1864,	Adjusted R-squared:  0.186 
+		% 	F-statistic: 506.9 on 1 and 2213 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit3.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que la variable independiente define a ViolentCrimesPerPop. El nivel de significación es 0 para la variable, lo cual representa que tiene gran importancia. El valor de $R^2$ ajustado es 0.186 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que la variable tiene valor significativamente mayor que cero.
+
+	\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov}
+
+		% \begin{verbatim}
+		% 	> multi.fit = lm(ViolentCrimesPerPop~PctPopUnderPov)
+		% 	> summary(multi.fit)
+
+		% 	Call:
+		% 	lm(formula = ViolentCrimesPerPop ~ PctPopUnderPov)
+
+		% 	Residuals:
+		% 		Min      1Q  Median      3Q     Max 
+		% 	-2.5809 -0.4577 -0.1828  0.3105  6.6045 
+
+		% 	Coefficients:
+		% 					Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)    2.205e-16  1.871e-02    0.00        1    
+		% 	PctPopUnderPov 4.744e-01  1.871e-02   25.35   <2e-16 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		% 	Residual standard error: 0.8805 on 2213 degrees of freedom
+		% 	Multiple R-squared:  0.2251,	Adjusted R-squared:  0.2247 
+		% 	F-statistic: 642.7 on 1 and 2213 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit4.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que la variable independiente define a ViolentCrimesPerPop. El nivel de significación es 0 para la variable, lo cual representa que tiene gran importancia. El valor de $R^2$ ajustado es 0.2247 lo cual es una clara indicación de que el modelo es muy malo pero tiene mayor importancia que la variable independiente analizada previamente. El p-valor de F es 0, lo que significa que la variable tiene valor significativamente mayor que cero.
+
+\end{itemize}
+
+\subsection*{Crímenes no violentos.}
+\begin{itemize}
+	\item {nonViolPerPop$\rightarrow$medIncome \\ +PctPopUnderPov+PctUnemployed}
+		% \begin{verbatim}
+			
+		% 	> multi.fit = lm(nonViolPerPop~medIncome+PctPopUnderPov+PctUnemployed)
+		% 	> summary(multi.fit)
+			
+		% 	Call:
+		% 	lm(formula = nonViolPerPop ~ medIncome + PctPopUnderPov + PctUnemployed)
+			
+		% 	Residuals:
+		% 	Min      1Q  Median      3Q     Max 
+		% 	-2.7202 -0.5037 -0.1192  0.3837  8.7574 
+			
+		% 	Coefficients:
+		% 					Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)    -1.962e-16  1.814e-02   0.000    1.000    
+		% 	medIncome      -1.933e-01  2.790e-02  -6.928  5.6e-12 ***
+		% 	PctPopUnderPov  3.558e-01  3.467e-02  10.260  < 2e-16 ***
+		% 	PctUnemployed   4.866e-03  2.865e-02   0.170    0.865    
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+			
+		% 	Residual standard error: 0.8538 on 2211 degrees of freedom
+		% 	Multiple R-squared:  0.2721,	Adjusted R-squared:  0.2711 
+		% 	F-statistic: 275.5 on 3 and 2211 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+		
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit5.png}
+			\end{center}
+		\end{figure}
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que las variables independientes definen a nonViolPerPop. El nivel de significación es 0 para las variables, excepto para PctUnemployed que es 0.865. Esto apunta a que dicha variable no aporta nada al modelo y por tanto puede ser eliminada. El valor de $R^2$ ajustado es 0.2711 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
+
+	\item {nonViolPerPop$\rightarrow$medIncome+PctPopUnderPov}
+
+		% \begin{verbatim}
+		% 	> multi.fit = lm(nonViolPerPop~medIncome+PctPopUnderPov)
+		% 	> summary(multi.fit)
+
+		% 	Call:
+		% 	lm(formula = nonViolPerPop ~ medIncome + PctPopUnderPov)
+
+		% 	Residuals:
+		% 		Min      1Q  Median      3Q     Max 
+		% 	-2.7168 -0.5050 -0.1186  0.3843  8.7584 
+
+		% 	Coefficients:
+		% 					Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)    -1.965e-16  1.814e-02   0.000        1    
+		% 	medIncome      -1.936e-01  2.783e-02  -6.958 4.54e-12 ***
+		% 	PctPopUnderPov  3.593e-01  2.783e-02  12.909  < 2e-16 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		% 	Residual standard error: 0.8536 on 2212 degrees of freedom
+		% 	Multiple R-squared:  0.2721,	Adjusted R-squared:  0.2714 
+		% 	F-statistic: 413.4 on 2 and 2212 DF,  p-value: < 2.2e-16
+
+		% \end{verbatim}
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit6.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que las variables independientes definen a nonViolPerPop. El nivel de significación es 0 para las variables, lo cual representa que tienen gran importancia. El valor de $R^2$ ajustado es 0.2714 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
+
+	\item {nonViolPerPop$\rightarrow$medIncome}
+		% \begin{verbatim}
+		% 	> multi.fit = lm(nonViolPerPop~medIncome)
+		% 	> summary(multi.fit)
+
+		% 	Call:
+		% 	lm(formula = nonViolPerPop ~ medIncome)
+
+		% 	Residuals:
+		% 		Min      1Q  Median      3Q     Max 
+		% 	-2.2436 -0.5667 -0.1467  0.4016  8.5474 
+
+		% 	Coefficients:
+		% 				Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept) -2.649e-16  1.880e-02    0.00        1    
+		% 	medIncome   -4.661e-01  1.881e-02  -24.78   <2e-16 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		% 	Residual standard error: 0.8849 on 2213 degrees of freedom
+		% 	Multiple R-squared:  0.2172,	Adjusted R-squared:  0.2169 
+		% 	F-statistic: 614.2 on 1 and 2213 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit7.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que la variable independiente define a ViolentCrimesPerPop. El nivel de significación es 0 para la variable, lo cual representa que tiene gran importancia. El valor de $R^2$ ajustado es 0.2169 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que la variable tiene valor significativamente mayor que cero.
+
+	\item{nonViolPerPop$\rightarrow$PctUnemployed}
+		% \begin{verbatim}
+		% 	> multi.fit = lm(nonViolPerPop~PctUnemployed)
+		% 	> summary(multi.fit)
+
+		% 	Call:
+		% 	lm(formula = nonViolPerPop ~ PctUnemployed)
+
+		% 	Residuals:
+		% 		Min      1Q  Median      3Q     Max 
+		% 	-2.4246 -0.5882 -0.1477  0.4027  8.5160 
+
+		% 	Coefficients:
+		% 					Estimate Std. Error t value Pr(>|t|)    
+		% 	(Intercept)   -1.442e-16  1.949e-02    0.00        1    
+		% 	PctUnemployed  3.986e-01  1.950e-02   20.45   <2e-16 ***
+		% 	---
+		% 	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		% 	Residual standard error: 0.9173 on 2213 degrees of freedom
+		% 	Multiple R-squared:  0.1589,	Adjusted R-squared:  0.1585 
+		% 	F-statistic:   418 on 1 and 2213 DF,  p-value: < 2.2e-16
+		% \end{verbatim}
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=.92\columnwidth,right]{figures/multifit8.png}
+			\end{center}
+		\end{figure}
+
+	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	Se puede decir que la variable independiente define a ViolentCrimesPerPop. El nivel de significación es 0 para la variable, lo cual representa que tiene gran importancia. El valor de $R^2$ ajustado es 0.1585 lo cual es una clara indicación de que el modelo es muy malo además de tener menor importancia que la variable independiente analizada previamente. El p-valor de F es 0, lo que significa que la variable tiene valor significativamente mayor que cero.
+
+\end{itemize}
+
+\subsection*{Supuestos.}
+
+	A pesar que ninguno de los modelos resultó ser siquiera medianamente buenos, se escogió un modelo de cada una de las secciones analizadas previamente. A continuación se realizará el análisis de los supuestos en cada caso. No se requiere hacerlos todos una vez que uno se incumple (contrario a lo que se presenta aquí).
+
+	\begin{itemize}
+		\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov+PctUnemployed}
+		
+			% \begin{verbatim}
+			% 	> mean(multi.fit$residuals)
+			% 	[1] 7.472035e-17
+			% 	> sum(multi.fit$residuals)
+			% 	[1] 1.627032e-13
+			% \end{verbatim}
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup1.png}
+				\end{center}
+			\end{figure}
+
+			La media de los errores es cero y la suma de los errores es cero.
+
+			% \begin{verbatim}
+			% 	> ks.test(res, 'pnorm', mean = mean(res),sd=sd(res))
+
+			% 		One-sample Kolmogorov-Smirnov test
+
+			% 	data:  res
+			% 	D = 0.12433, p-value < 2.2e-16
+			% 	alternative hypothesis: two-sided
+
+			% \end{verbatim}
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup2.png}
+				\end{center}
+			\end{figure}
+			
+			El p-valor es menor que 0.05 por tanto no se cumple que los errores siguen una distribución normal.
+
+			% \begin{verbatim}
+			% 	> dwtest(multi.fit)
+
+			% 		Durbin-Watson test
+
+			% 	data:  multi.fit
+			% 	DW = 1.6345, p-value < 2.2e-16
+			% 	alternative hypothesis: true autocorrelation is greater than 0
+			% \end{verbatim}
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup3.png}
+				\end{center}
+			\end{figure}
+
+			Como el p-valor de esta prueba es 0 < 0.05 podemos rechazar la hipótesis nula por lo que 
+			podemos afirmar que los errores no son independientes. 
+
+			% \begin{verbatim}
+			% 	> bptest(multi.fit)
+
+			% 		studentized Breusch-Pagan test
+
+			% 	data:  multi.fit
+			% 	BP = 267.61, df = 2, p-value < 2.2e-16
+			% \end{verbatim}
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup4.png}
+				\end{center}
+			\end{figure}
+
+			Como el p-valor de esta prueba es 0 < 0.05 podemos rechazar la hipótesis nula por lo que podemos 
+			afirmar que no se cumple la heterocedasticidad. Por lo que el supuesto de Homocedasticidad no se mantiene.
+
+		\item {nonViolPerPop$\rightarrow$medIncome+PctPopUnderPov}
+			% \begin{verbatim}
+			% 	> mean(multi.fit$residuals)
+			% 	[1] 7.612007e-17
+			% 	> sum(multi.fit$residuals)
+			% 	[1] 1.700879e-13
+			% \end{verbatim}
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup5.png}
+				\end{center}
+			\end{figure}
+			La media de los errores es cero y la suma de los errores es cero.
+
+			% \begin{verbatim}
+			% 	> ks.test(res, 'pnorm', mean = mean(res),sd=sd(res))
+
+			% 		One-sample Kolmogorov-Smirnov test
+
+			% 	data:  res
+			% 	D = 0.092453, p-value < 2.2e-16
+			% 	alternative hypothesis: two-sided
+			% \end{verbatim}
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup6.png}
+				\end{center}
+			\end{figure}
+			
+			El p-valor es menor que 0.05 por tanto no se cumple que los errores siguen una distribución normal.
+
+			% \begin{verbatim}
+				
+			% 	> dwtest(multi.fit)
+
+			% 	Durbin-Watson test
+
+			% 	data:  multi.fit
+			% 	DW = 1.6697, p-value = 3.454e-15
+			% 	alternative hypothesis: true autocorrelation is greater than 0
+
+			% \end{verbatim}
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup7.png}
+				\end{center}
+			\end{figure}
+
+			Como el p-valor de esta prueba es 0 < 0.05 podemos rechazar la hipótesis nula por lo que 
+			podemos afirmar que los errores no son independientes. 
+
+			% \begin{verbatim}
+			% 	> bptest(multi.fit)
+
+			% 		studentized Breusch-Pagan test
+
+			% 	data:  multi.fit
+			% 	BP = 33.516, df = 2, p-value = 5.273e-08
+			% \end{verbatim}
+
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[width=.92\columnwidth,right]{figures/sup8.png}
+				\end{center}
+			\end{figure}
+
+			Como el p-valor de esta prueba es 0 < 0.05 podemos rechazar la hipótesis nula por lo que podemos 
+			afirmar que no se cumple la heterocedasticidad. Por lo que el supuesto de Homocedasticidad no se mantiene.
+	\end{itemize}
+
+	Además de ser modelos, que de manera previa a esta comprobación, se conocía que eran malos; incumplen varios de los supuestos lo que reafirma que no son válidos.
+
 %-----------------------------------------------------------------------------------
 \section{Reducción de dimensión}\label{sec:ex1}
 %-----------------------------------------------------------------------------------
