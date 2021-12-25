@@ -644,7 +644,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 
 	Ahora con la cantidad de clusters definida podemos aplicar el algoritmo quedando una distribución que tiene una medida de similitud de los elementos dentro de cada cluster de 40.6\%, la cual es baja debido a la cantidad de variables que poseemos sin ninguna correlación entre sí.
 
-	Ahora intentaremos disminuir la dimensión de los datos tomando solo un conjunto de las variables que posee el conjunto de muestras, en particular son las que ya habíamos tomado en los anteriores acercamientos.
+	Ahora intentaremos disminuir la dimensión de los datos tomando solo un conjunto de las variables que posee el conjunto de muestras, en particular son las que ya habíamos tomado en el anterior acercamiento.
 
 	Veamos nuevamente la correlación entre las variables, pero esta vez de las variables seleccionadas.
 
@@ -657,7 +657,7 @@ ViolentCrimesPerPop . .  .  1
 nonViolPerPop       . .  .  , 1
 	\end{verbatim}
 
-	A pesar de ver un número menor de espacios en blanco, se puede ver como todo son . y , lo que hace que igual no sea un matriz altamente correlacionada, veamos que resultados arroja aplicar el algoritmo de ACP, para esto igualmente estandarizamos los datos. Obtenemos que con solo tomar las dos primeras componentes principales estas obtendríamos una proporción acumulativa de 0.8131 con lo que explicaríamos el 81.31\% de la variación de los datos, este por ciento es mayor que 70\% por lo que es aceptable, esto se puede apreciar mejor en la gráfica \ref{fig:acp_2}. Si nos guiásemos por el criterio de Kaiser tenemos que solo la primera componente posee valor propio mayor que 1.
+	A pesar de ver un número menor de espacios en blanco, se puede ver como todo son . y , lo que hace que igual no sea un matriz altamente correlacionada, veamos que resultados arroja aplicar el algoritmo de ACP, para esto igualmente estandarizamos los datos. Obtenemos que con solo tomar las dos primeras componentes principales, obtendríamos una proporción acumulativa de 0.8131 con lo que explicaríamos el 81.31\% de la variación de los datos, este porciento es mayor que 70\% por lo que es aceptable, esto se puede apreciar mejor en la gráfica \ref{fig:acp_2}. Si nos guiásemos por el criterio de Kaiser tenemos que solo la primera componente posee valor propio mayor que 1.
 
 	\begin{figure}[htb]
 		\begin{center}
@@ -668,7 +668,7 @@ nonViolPerPop       . .  .  , 1
 
 	Veamos qué variables son importantes para la componente 1. Podemos tomar el mayor valor propio absoluto que es 0.5021, teniendo este podemos afirmar que todos los valores propios cuyo módulo esté por encima de 0.2510 en la columna de PC1 son las variables que conforman esta componente. Por tanto PC1 está caracterizada por personas con bajos ingresos, gran porciento de personas por debajo del nivel de pobreza, alto porciento de personas en edad laboral desempleados, alto número de crímenes violentos y alto número de crímenes no violentos.
 
-	Siguiendo el análisis que se realizó teniendo en cuenta todas las variables, podemos aplicar el algoritmo de clusters jerárquicos pero con este obtenemos un resultado similar al anterior en donde se obtiene un clusters que posee a la mayoría de los datos y el resto solo posee una pequeña proporción de las muestras.
+	Siguiendo el análisis que se realizó teniendo en cuenta todas las variables, podemos aplicar el algoritmo de clusters jerárquicos pero con este obtenemos un resultado similar al anterior en el que se obtiene un clusters que posee a la mayoría de los datos y el resto solo posee una pequeña proporción de las muestras.
 
 	Ahora veamos para este conjunto de variables cuál sería el mejor número de cluster a formar con el algoritmo de K-Means, realizando un análisis similar podemos ver en la gráfica \ref{fig:cluster_n_2} como para estas variables el mejor número de clusters a tomar sería 4. Con esta distribución obtenemos una medida de similitud de los elementos dentro de cada cluster de 69.5\%, la cual es más alta que el anterior análisis a pesar de poseer un menor número de clusters.
 
@@ -695,7 +695,7 @@ El análisis de varianza (ANOVA) permite determinar si las diferencias entre gru
 
 Note que la cantidad de comunidades por cada estado varía en dependencia del mismo, por tanto en primer lugar se debió hacer un filtrado de la base de datos, eliminando aquellos estados que solo contaban con una observación (o lo que es lo mismo, que solo contaban con una comunidad como muestra). Igualmente, en el caso de las variables \textit{ViolentCrimesPerPop} y \textit{nonViolPerPop}, ocurría que habían datos faltantes; no obstante como la cantidad de ellos era muy pequeña respecto al resto de los datos, pudieron ser obviadas estas filas. Además, dado que el Estado al que pertenece una comunidad es un dato categórico, se lleva a cabo el mapeo del vector de Estados, tal que a cada uno se le asigna un número. El código presente en el archivo \href{anova.R}{anova.R} contiene la implementación de estos métodos para cada variable.
 
-Tomemos el caso de la variable \textit{PctUnemployed}, que representa la cantidad de personas desempleadas por cada 100000 habitantes en las comunidades, y que a su vez es de gran importancia en le análisis de criminalidad de las poblaciones dado que se encuentra estrechamente relacionada con los ingresos medios de las familias, el nivel de pobreza, etc. En la figura \ref{fig:unemployed_boxplot} se puede observar la distribución de los datos según los Estados.
+Tomemos el caso de la variable \textit{PctUnemployed}, que representa la cantidad de personas desempleadas por cada 100000 habitantes en las comunidades, y que a su vez es de gran importancia en el análisis de criminalidad de las poblaciones dado que se encuentra estrechamente relacionada con los ingresos medios de las familias, el nivel de pobreza, etc. En la figura \ref{fig:unemployed_boxplot} se puede observar la distribución de los datos según los Estados.
 	
 \begin{figure}[htb]
 	\begin{center}
@@ -712,7 +712,7 @@ Se lleva a cabo el ANOVA obteniendo los resultados que se muestran en la figura 
 	\caption{Resultados de aplicar la técnica ANOVA sobre los datos \label{fig:anova_unemp}}
 \end{figure}
 
-Como se puede observar el $valor \, -\, p = 0.205$ y este valor es mayor que la significación prefijada ($\alpha = 0.05$), por tanto $H_0$ no puede ser rechazada lo q implica que los valores de varianza de los Estados con repecto al desempleo se encuentran alrededor del mismo valor. Tras este cómputo se procede a hallar los residuos para el cálculo delos supuestos.
+Como se puede observar el $valor \, -\, p = 0.205$ y este valor es mayor que la significación prefijada ($\alpha = 0.05$), por tanto $H_0$ no puede ser rechazada lo que implica que los valores de varianza de los Estados con repecto al desempleo se encuentran alrededor del mismo valor. Tras este cómputo se procede a hallar los residuos para el cálculo de los supuestos.
 
 Al llevar a cabo la prueba de Shapiro-Wilk, se obtiene el siguiente resultado (\ref{fig:shapiro_unemp})
 \begin{figure}[htb]
@@ -742,7 +742,7 @@ Análogamente se realiza este análisis con el resto de las variables que se des
 %===================================================================================
 Se llevó a cabo el estudio de los datos a través de los ejercicios propuestos, utilizando las técnicas de regresión, reducción de dimensión y ANOVA y posteriormente se desarrolló la interpretación de los resultados obtenidos.
 
-En el caso de ANOVA, lamentablemente se incumplieron los supuestos en cada una de los modelos determinados por las variables seleccionadas, lo que permite afirmar que no se pudieron aplicar las técnicas de anova sobre estos datos. Igualmente ocurrió en el caso de los modelos de regresión lineal, donde los supuestos se incumplieron, por lo que se reafirma que dichos modelos no fueron buenos. Este análisis de los datos indica que , por lo menos en el caso de las variables seleccionadas, se encuentran sesgados y poco correlacionados.
+En el caso de ANOVA, lamentablemente se incumplieron los supuestos en cada una de los modelos determinados por las variables seleccionadas, lo que permite afirmar que no se pudieron aplicar las técnicas de anova sobre estos datos. Igualmente ocurrió en el caso de los modelos de regresión lineal, donde los supuestos se incumplieron, por lo que se reafirma que dichos modelos no fueron buenos. Este análisis de los datos indica que, por lo menos en el caso de las variables seleccionadas, se encuentran sesgados y poco correlacionados.
 
 Por último, en el caso de la aplicación de técnicas para reducción de la dimensión se vuelve a observar la poca correlación existente entre los datos. En el caso de las variables seleccionadas, elegir un número menor para realizar el algoritmo de $K-Means$ proporcionó mejores resultados.
 
