@@ -633,7 +633,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 		\caption{clusters jerárquico de los datos con todas las variables \label{fig:dendograma_1}}%
 	\end{figure}
 
-	Para aplicar el algoritmo de K-Means debemos conocer en cuantos clusters intentaremos dividir la muestra, para esto hallamos el error que se obtiene al intentar particionar los datos en distintos números de clusters y tomamos el que mejor relación tenga. Como podemos ver en la grafica \ref{fig:cluster_n_1} para una cantidad de clusters mayor que 8 el error disminuye pero en menor escala que como lo hacía antes, y como el objetivo es tener la menor cantidad de clusters posible, tomamos 8 ya que posee un menor error y una menor cantidad de clusters.
+	Para aplicar el algoritmo de K-Means debemos conocer en cuántos clusters intentaremos dividir la muestra, para esto hallamos el error que se obtiene al intentar particionar los datos en distintos números de clusters y tomamos el que mejor relación tenga. Como podemos ver en la gráfica \ref{fig:cluster_n_1} para una cantidad de clusters mayor que 8 el error disminuye pero en menor escala que como lo hacía antes, y como el objetivo es tener la menor cantidad de clusters posible, tomamos 8 ya que posee un menor error y una menor cantidad de clusters.
 
 	\begin{figure}[htb]
 		\begin{center}
@@ -657,7 +657,7 @@ ViolentCrimesPerPop . .  .  1
 nonViolPerPop       . .  .  , 1
 	\end{verbatim}
 
-	A pesar de ver un número menor de espacios en blanco, se puede ver como todo son . y , lo que hace que igual no sea un matriz altamente correlacionada, veamos que resultados arroja aplicar el algoritmo de ACP, para esto igualmente estandarizamos los datos. Obtenemos que con solo tomar las dos primeras componentes principales estas obtendriamos una proporción acumulativa de 0.8131 con lo que explicaríamos el 81.31\% de la variación de los datos, este por ciento es mayor que 70\% por lo que es aceptable, esto se puede apreciar mejor en la grafica \ref{fig:acp_2}. Si nos guiásemos por el criterio de Kaiser tenemos que solo la primera componente posee valor propio mayor que 1.
+	A pesar de ver un número menor de espacios en blanco, se puede ver como todo son . y , lo que hace que igual no sea un matriz altamente correlacionada, veamos que resultados arroja aplicar el algoritmo de ACP, para esto igualmente estandarizamos los datos. Obtenemos que con solo tomar las dos primeras componentes principales estas obtendríamos una proporción acumulativa de 0.8131 con lo que explicaríamos el 81.31\% de la variación de los datos, este por ciento es mayor que 70\% por lo que es aceptable, esto se puede apreciar mejor en la gráfica \ref{fig:acp_2}. Si nos guiásemos por el criterio de Kaiser tenemos que solo la primera componente posee valor propio mayor que 1.
 
 	\begin{figure}[htb]
 		\begin{center}
@@ -668,9 +668,9 @@ nonViolPerPop       . .  .  , 1
 
 	Veamos qué variables son importantes para la componente 1. Podemos tomar el mayor valor propio absoluto que es 0.5021, teniendo este podemos afirmar que todos los valores propios cuyo módulo esté por encima de 0.2510 en la columna de PC1 son las variables que conforman esta componente. Por tanto PC1 está caracterizada por personas con bajos ingresos, gran porciento de personas por debajo del nivel de pobreza, alto porciento de personas en edad laboral desempleados, alto número de crímenes violentos y alto número de crímenes no violentos.
 
-	Siguiendo el análisis que se realizó teniendo en cuenta todas las variables, podemos aplicar el algoritmo de clústers jerárquicos pero con este obtenemos un resultado similar al anterior en donde se obtiene un clusters que posee a la mayoría de los datos y el resto solo posee una pequeña proporción de las muestras.
+	Siguiendo el análisis que se realizó teniendo en cuenta todas las variables, podemos aplicar el algoritmo de clusters jerárquicos pero con este obtenemos un resultado similar al anterior en donde se obtiene un clusters que posee a la mayoría de los datos y el resto solo posee una pequeña proporción de las muestras.
 
-	Ahora veamos para este conjunto de variables cuál sería el mejor número de cluster a formar con el algorítmo de K-Means, realizando un análisis similar podemos ver en la gráfica \ref{fig:cluster_n_2} como para estas variables el mejor número de clusters a tomar sería 4. Con esta distribución obtenemos una medida de similitud de los elementos dentro de cada cluster de 69.5\%, la cual es más alta que el anterior análisis a pesar de poseer un menor número de clusters.
+	Ahora veamos para este conjunto de variables cuál sería el mejor número de cluster a formar con el algoritmo de K-Means, realizando un análisis similar podemos ver en la gráfica \ref{fig:cluster_n_2} como para estas variables el mejor número de clusters a tomar sería 4. Con esta distribución obtenemos una medida de similitud de los elementos dentro de cada cluster de 69.5\%, la cual es más alta que el anterior análisis a pesar de poseer un menor número de clusters.
 
 	\begin{figure}[htb]
 		\begin{center}
@@ -679,7 +679,7 @@ nonViolPerPop       . .  .  , 1
 		\caption{Error de los datos por cada cantidad de clusters \label{fig:cluster_n_2}}%
 	\end{figure}
 
-	Podemos ver la distribución de clusters para las muestras con respecto a las variables seleccionadas en la figura \ref{fig:plot_clusters}.
+	Podemos ver la distribución de clusters para las muestras con respecto a las variables seleccionadas en la gráfica \ref{fig:plot_clusters}.
 
 	\begin{figure}[htb]
 		\begin{center}
