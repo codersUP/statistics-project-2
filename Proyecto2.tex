@@ -131,6 +131,10 @@
 % Introducción
 %-----------------------------------------------------------------------------------
 \section{Introducción}\label{sec:intro}
+
+	El set de datos a utilizar contiene información sobre comunidades de Estados Unidos, que puede estar relacionada de alguna forma a los índices de criminalidad que estas presentan. Se combinan datos socioeconómicos del censo de 1990, ley datos de aplicación de la encuesta de 1990 sobre gestión de la aplicación de la ley y estadísticas administrativas, y datos delictivos de la UCR del FBI de 1995.
+	
+	El propósito de este proyecto es llevar a cabo un estudio sobre las variables de dicho juego de datos, aplicando técnicas de regresión, reducción de dimensión y anova que permitan luego realizar una caracterización de las mismas, así como la realización de predicciones sobre ellas.
 %-----------------------------------------------------------------------------------
 %===================================================================================
 
@@ -141,19 +145,16 @@
 %-----------------------------------------------------------------------------------
 \section{Variables}\label{sec:ex1.0}
 %-----------------------------------------------------------------------------------
-El set de datos que se analiza en este proyecto tiene como uno de los objetivos principales el análisis de 
-la criminalidad en todas las "municipalidades" en los Estados Unidos. Se decidió hacer un análisis tratando
- de asociar cuestiones meramente socio-ecónomicas de los individuos en búsqueda de una relación de los mismos con 
- el crimen en estas comunidades.
+El set de datos que se analiza en este proyecto tiene como uno de los objetivos principales el análisis de la criminalidad en todas las "municipalidades" en los Estados Unidos. Se decidió hacer un análisis tratando de asociar cuestiones meramente socio-ecónomicas de los individuos en búsqueda de una relación de los mismos con el crimen en estas comunidades.
 
- Como consecuencia a dicha decisión se toman como variables independientes:
+ Como consecuencia a dicha decisión se toman como variables independientes a analizar:
  \begin{itemize}
-	 \item medIncome : ingreso promedio de los trabajdores.
+	 \item medIncome : ingreso promedio de los trabajadores.
 	 \item PctPopUnderPov : porciento de la población que vive por debajo del nivel de pobreza.
 	 \item PctUnemployed : porciento de individuos desempleados con edad laboral.	 
  \end{itemize}
 
- Como variables dependientes se tiene:
+ Como variables dependientes se toman:
  \begin{itemize}
 	 \item ViolentCrimesPerPop : cantidad de crímenes violentos por cada 100 000 habitantes.
 	 \item nonViolPerPop : cantidad de crímenes no violentos por cada 100 000 habitantes.
@@ -222,8 +223,8 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 			\end{center}
 		\end{figure}
 
-	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que  $Pr(> | t | )$ =1.
-	Se puede decir que las variables independientes definen a ViolentCrimesPerPop. El nivel de significación es 0 para las variables, excepto para medIcome que es 0.332. Esto apunta a que dicha variable no aporta nada al modelo y por tanto puede ser eliminada. El valor de $R^2$ ajustado es 0.2349 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
+	El estimado del coeficiente del intercepto es 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que  $Pr(> | t | ) =1 $.
+	Se puede decir que las variables independientes definen a \textit{ViolentCrimesPerPop}. El nivel de significación es 0 para las variables, excepto para medIcome que es 0.332. Esto apunta a que dicha variable no aporta nada al modelo y por tanto puede ser eliminada. El valor de $R^2$ ajustado es 0.2349 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
 
 	\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov \\ +PctUnemployed}
 
@@ -256,7 +257,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 			\end{center}
 		\end{figure}
 
-	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	El estimado del coeficiente del intercepto es 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | ) =1$.
 	Se puede decir que las variables independientes definen a ViolentCrimesPerPop. El nivel de significación es 0 para las variables, lo cual representa que tienen gran importancia. El valor de $R^2$ ajustado es 0.2349 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que hay al menos una variable con valor significativamente mayor que cero.
 
 	\item{ViolentCrimesPerPop$\rightarrow$PctUnemployed}
@@ -289,7 +290,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 			\end{center}
 		\end{figure}
 
-	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	El estimado del coeficiente del intercepto es 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | ) =1$.
 	Se puede decir que la variable independiente define a ViolentCrimesPerPop. El nivel de significación es 0 para la variable, lo cual representa que tiene gran importancia. El valor de $R^2$ ajustado es 0.186 lo cual es una clara indicación de que el modelo es muy malo. El p-valor de F es 0, lo que significa que la variable tiene valor significativamente mayor que cero.
 
 	\item {ViolentCrimesPerPop$\rightarrow$PctPopUnderPov}
@@ -323,7 +324,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 			\end{center}
 		\end{figure}
 
-	El estimado del coeficiente del intercepto 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | )$ =1.
+	El estimado del coeficiente del intercepto es 0 y no posee una diferencia circunstancial con los demás coeficientes. Tiene un nivel de significación muy bajo ya que $Pr(> | t | ) =1$.
 	Se puede decir que la variable independiente define a ViolentCrimesPerPop. El nivel de significación es 0 para la variable, lo cual representa que tiene gran importancia. El valor de $R^2$ ajustado es 0.2247 lo cual es una clara indicación de que el modelo es muy malo pero tiene mayor importancia que la variable independiente analizada previamente. El p-valor de F es 0, lo que significa que la variable tiene valor significativamente mayor que cero.
 
 \end{itemize}
@@ -643,7 +644,7 @@ Se tomará como variables dependientes a ViolentCrimesPerPop y nonViolPerPop.
 
 	Ahora con la cantidad de clusters definida podemos aplicar el algoritmo quedando una distribución que tiene una medida de similitud de los elementos dentro de cada cluster de 40.6\%, la cual es baja debido a la cantidad de variables que poseemos sin ninguna correlación entre sí.
 
-	Ahora intentaremos disminuir la dimensión de los datos tomando solo un conjunto de las variables que posee el conjunto de muestras, en particular son las que ya habiamos tomado en los anteriores acercamientos.
+	Ahora intentaremos disminuir la dimensión de los datos tomando solo un conjunto de las variables que posee el conjunto de muestras, en particular son las que ya habíamos tomado en los anteriores acercamientos.
 
 	Veamos nuevamente la correlación entre las variables, pero esta vez de las variables seleccionadas.
 
@@ -665,9 +666,9 @@ nonViolPerPop       . .  .  , 1
 		\caption{Proporción acumulativa de componentes principales\label{fig:acp_2}}%
 	\end{figure}
 
-	Veamos que variables son importantes para la componente 1. Podemos tomar el mayor valor propio absoluto que es 0.5021, teniendo este podemos afirmar que todos los valores propios cuyo módulo esté por encima de 0.2510 en la columna de PC1 son las variables que conforman esta componente. Por tanto PC1 está caracterizada por personas con bajos ingresos, gran porciento de personas por debajo del nivel de pobreza, alto porciento de personas en edad laboral desempleados, alto número de crímenes violentos y alto número de crímenes no violentos.
+	Veamos qué variables son importantes para la componente 1. Podemos tomar el mayor valor propio absoluto que es 0.5021, teniendo este podemos afirmar que todos los valores propios cuyo módulo esté por encima de 0.2510 en la columna de PC1 son las variables que conforman esta componente. Por tanto PC1 está caracterizada por personas con bajos ingresos, gran porciento de personas por debajo del nivel de pobreza, alto porciento de personas en edad laboral desempleados, alto número de crímenes violentos y alto número de crímenes no violentos.
 
-	Siguiendo el análisis que se realizó teniendo en cuenta todas las variables, podemo aplicar el algoritmo de clústers jerárquicos pero con este obtenemos un resultado similar al anterior en donde se obtiene un clusters que posee a la mayoría de los datos y el resto solo posee una pequeña proporción de las muestras.
+	Siguiendo el análisis que se realizó teniendo en cuenta todas las variables, podemos aplicar el algoritmo de clústers jerárquicos pero con este obtenemos un resultado similar al anterior en donde se obtiene un clusters que posee a la mayoría de los datos y el resto solo posee una pequeña proporción de las muestras.
 
 	Ahora veamos para este conjunto de variables cuál sería el mejor número de cluster a formar con el algorítmo de K-Means, realizando un análisis similar podemos ver en la gráfica \ref{fig:cluster_n_2} como para estas variables el mejor número de clusters a tomar sería 4. Con esta distribución obtenemos una medida de similitud de los elementos dentro de cada cluster de 69.5\%, la cual es más alta que el anterior análisis a pesar de poseer un menor número de clusters.
 
@@ -686,10 +687,43 @@ nonViolPerPop       . .  .  , 1
 		\end{center}
 		\caption{Datos representados con colores diferenciando su pertenencia a cada cluster \label{fig:plot_clusters}}%
 	\end{figure}
+
+
+\section{ANOVA}
+
+El análisis de varianza (ANOVA) permite determinar si las diferencias entre grupos de datos son significativas estadísiticamente. En el caso particular de el set de datos utilizado en este proyecto, se tiene que las variables se estudian sobre las diferentes comunidades de los estados de los Estados Unidos. Por ello se puede llevar a cabo un estudio de dichas variables y su variación con respecto a los diferentes estados. Previamente fueron seleccionadas algunas variables para su estudio, las mismas se estarán utilizando en estos casos.
+
+Note que la cantidad de comunidades por cada estado varía en dependencia del mismo, por tanto en primer lugar se debió hacer un filtrado de la base de datos, eliminando aquellos estados que solo contaban con una observación (o lo que es lo mismo, que solo contaban con una comunidad como muestra). Igualmente, en el caso de las variables \textit{ViolentCrimesPerPop} y \textit{nonViolPerPop}, ocurría que habían datos faltantes; no obstante como la cantidad de ellos era muy pequeña respecto al resto de los datos, pudieron ser obviadas estas filas. Además, dado que el Estado al que pertenece una comunidad es un dato categórico, se lleva a cabo el mapeo del vector de Estados, tal que a cada uno se le asigna un número. El código presente en el archivo \href{anova.R}{anova.R} contiene la implementación de estos métodos para cada variable.
+
+Tomemos el caso de la variable \textit{PctUnemployed}, que representa la cantidad de personas desempleadas por cada 100000 habitantes en las comunidades, y que a su vez es de gran importancia en le análisis de criminalidad de las poblaciones dado que se encuentra estrechamente relacionada con los ingresos medios de las familias, el nivel de pobreza, etc. En la figura \ref{fig:unemployed_boxplot} se puede observar la distribución de los datos según los Estados.
 	
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=\columnwidth]{figures/Unemployed_plot.png}
+	\end{center}
+	\caption{Bloxplot de la tasa de desempleo para cada estado \label{fig:unemployed_boxplot}}
+\end{figure}
 
+Se lleva a cabo el ANOVA obteniendo los resultados que se muestran en la figura \ref{fig:anova_unemp}:
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=\columnwidth]{figures/unemployed_anova.png}
+	\end{center}
+	\caption{Resultados de aplicar la técnica ANOVA sobre los datos \label{fig:anova_unemp}}
+\end{figure}
 
+Como se puede observar el $valor \, -\, p = 0.205$ y este valor es mayor que la significación prefijada ($\alpha = 0.05$), por tanto $H_0$ no puede ser rechazada lo q implica que los valores de varianza de los Estados con repecto al desempleo se encuentran alrededor del mismo valor. Tras este cómputo se procede a hallar los residuos para el cálculo delos supuestos.
 
+Al llevar a cabo la prueba de Shapiro-Wilk, se obtiene el siguiente resultado (\ref{fig:shapiro_unemp})
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=\columnwidth]{figures/unemployed_shapiro.png}
+	\end{center}
+	\caption{Resultados de aplicar la prueba Shapiro-Wilks sobre los residuos \label{fig:shapiro_unemp}}
+\end{figure}
+Note que el $p-value < 0.05$, que es la significación prefijada, lo que implica que es significativo y por tanto se rechaza $H_0$. Al ocurrir esto, se puede afirmar que los residuos no presentan una distribución normal. Al incumplirse uno de ellos no es necesario verificar los otros supuestos, puesto que el proyecto puede ser rechazado.
+
+Análogamente se realiza este análisis con el resto de las variables que se deseaba estudiar. En cada caso se obtiene que no se cumplen los supuestos y por tanto se rechaza el modelo.
 
 
 %-----------------------------------------------------------------------------------
@@ -701,12 +735,28 @@ nonViolPerPop       . .  .  , 1
 
 %===================================================================================
 % Conclusiones
+
 %-----------------------------------------------------------------------------------
 \section{Conclusiones}\label{sec:conc}
 
 %===================================================================================
+Se llevó a cabo el estudio de los datos a través de los ejercicios propuestos, utilizando las técnicas de regresión, reducción de dimensión y ANOVA y posteriormente se desarrolló la interpretación de los resultados obtenidos.
+
+En el caso de ANOVA, lamentablemente se incumplieron los supuestos en cada una de los modelos determinados por las variables seleccionadas, lo que permite afirmar que no se pudieron aplicar las técnicas de anova sobre estos datos. Igualmente ocurrió en el caso de los modelos de regresión lineal, donde los supuestos se incumplieron, por lo que se reafirma que dichos modelos no fueron buenos. Este análisis de los datos indica que , por lo menos en el caso de las variables seleccionadas, se encuentran sesgados y poco correlacionados.
+
+Por último, en el caso de la aplicación de técnicas para reducción de la dimensión se vuelve a observar la poca correlación existente entre los datos. En el caso de las variables seleccionadas, elegir un número menor para realizar el algoritmo de $K-Means$ proporcionó mejores resultados.
 
 
+\section{Contribución de los integrantes}
+
+Esta segunda fase del proyecto requiere la aplicación de tres técnicas diferentes para el tratamiento de los datos, que evalúan distintas habilidades impartidas en clase. Se siguió como estrategia, al igual que en la primera fase, la lectura y debate iniciales de los problemas por todos los integrantes, de modo que quedara determinado el la ruta para la solución de cada uno. Una vez terminado este análisis se decidió que cada integrante se responsabilizara con la realización del código y la parte correspondiente del informe de una de las técnicas; tal distribución se obtuvo de forma aleatoria, quedando que:
+\begin{itemize}
+    \item Regresión lineal: Osmany Pérez
+    \item Reducción de dimensión: Enrique Martínez
+    \item ANOVA: Carmen I. Cabrera
+\end{itemize}
+
+Los archivos correspondientes al proyecto están almacenados en un repositorio de github, donde podrá corroborar que todos los participantes contribuyeron a su realización. Puede acceder a dicho repositorio a través del siguiente \href{https://github.com/codersUP/statistics-project-2}{link}
 
 %===================================================================================
 % Recomendaciones
@@ -719,11 +769,11 @@ nonViolPerPop       . .  .  , 1
 %===================================================================================
 % Bibliografía
 %-----------------------------------------------------------------------------------
-\begin{thebibliography}{99}
+
 %-----------------------------------------------------------------------------------
 
 %-----------------------------------------------------------------------------------
-\end{thebibliography}
+
 
 %-----------------------------------------------------------------------------------
 
